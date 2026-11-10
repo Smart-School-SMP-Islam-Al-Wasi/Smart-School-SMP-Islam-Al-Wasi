@@ -4,8 +4,11 @@ import path from 'path';
 import {defineConfig} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
 
+const base = '/Smart-School-SMP-Islam-Al-Wasi/';
+
 export default defineConfig(() => {
   return {
+    base,
     plugins: [
       react(),
       tailwindcss(),
@@ -13,30 +16,30 @@ export default defineConfig(() => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icon.svg'],
         manifest: {
-          id: '/',
+          id: base,
           name: "Smart School SMP Islam Al-Wasi'",
           short_name: "Al-Wasi'",
           description: "Sistem Informasi Manajemen Sekolah Cerdas SMP Islam Al-Wasi'",
           theme_color: '#166534',
           background_color: '#ffffff',
           display: 'standalone',
-          start_url: '/',
-          scope: '/',
+          start_url: base,
+          scope: base,
           icons: [
             {
-              src: '/icon-192.png',
+              src: `${base}icon-192.png`,
               sizes: '192x192',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/icon-512.png',
+              src: `${base}icon-512.png`,
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any',
             },
             {
-              src: '/icon-512-maskable.png',
+              src: `${base}icon-512-maskable.png`,
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable',
