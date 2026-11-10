@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidString(val, minLen, maxLen) {
+      return val is string && val.size() >= minLen && val.size() <= maxLen;
+    }
+
+    function isValidNumber(val, minVal, maxVal) {
+      return val is number && val >= minVal && val <= maxVal;
+    }
+
+    // Default catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Students collection (SPMB and school database)
+    match /students/{studentId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.keys().hasAll(['nisn', 'fullName', 'gender', 'classRoom', 'parentName', 'parentPhone'])
+        && isValidString(request.resource.data.nisn, 1, 30)
+        && isValidString(request.resource.data.fullName, 1, 120)
+        && isValidString(request.resource.data.classRoom, 1, 20)
+        && isValidString(request.resource.data.parentName, 1, 120)
+        && isValidString(request.resource.data.parentPhone, 1, 30);
+      allow delete: if true;
+    }
+
+    // Teachers collection (input by admin)
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.keys().hasAll(['nip', 'fullName', 'subject', 'phone', 'status'])
+        && isValidString(request.resource.data.nip, 1, 40)
+        && isValidString(request.resource.data.fullName, 1, 120)
+        && isValidString(request.resource.data.subject, 1, 60)
+        && isValidString(request.resource.data.phone, 1, 30);
+      allow delete: if true;
+    }
+
+    // Attendance collection (real-time attendance)
+    match /attendance/{attendanceId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.keys().hasAll(['studentId', 'studentName', 'classRoom', 'date', 'status', 'time'])
+        && isValidString(request.resource.data.studentId, 1, 64)
+        && isValidString(request.resource.data.studentName, 1, 120)
+        && isValidString(request.resource.data.classRoom, 1, 20)
+        && isValidString(request.resource.data.date, 1, 30)
+        && isValidString(request.resource.data.status, 1, 20)
+        && isValidString(request.resource.data.time, 1, 20);
+      allow delete: if true;
+    }
+
+    // Academic Grades collection
+    match /grades/{gradeId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.keys().hasAll(['studentId', 'studentName', 'classRoom', 'subject', 'assignment', 'midExam', 'finalExam', 'finalScore', 'predicate'])
+        && isValidString(request.resource.data.studentId, 1, 64)
+        && isValidString(request.resource.data.studentName, 1, 120)
+        && isValidString(request.resource.data.subject, 1, 60)
+        && isValidNumber(request.resource.data.assignment, 0, 100)
+        && isValidNumber(request.resource.data.midExam, 0, 100)
+        && isValidNumber(request.resource.data.finalExam, 0, 100);
+      allow delete: if true;
+    }
+
+    // School profile & settings
+    match /school_settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

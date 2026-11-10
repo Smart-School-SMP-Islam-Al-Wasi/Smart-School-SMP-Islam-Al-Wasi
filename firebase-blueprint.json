@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Data peserta didik SMP Islam Al-Wasi' dari pendaftaran SPMB",
+      "type": "object",
+      "properties": {
+        "nisn": { "type": "string", "maxLength": 20, "description": "Nomor Induk Siswa Nasional" },
+        "fullName": { "type": "string", "maxLength": 100, "description": "Nama lengkap siswa" },
+        "gender": { "type": "string", "enum": ["Laki-laki", "Perempuan"], "description": "Jenis kelamin" },
+        "birthPlace": { "type": "string", "maxLength": 60, "description": "Tempat lahir" },
+        "birthDate": { "type": "string", "maxLength": 20, "description": "Tanggal lahir (YYYY-MM-DD)" },
+        "classRoom": { "type": "string", "maxLength": 10, "description": "Kelas rombel (e.g. 7A, 8B)" },
+        "parentName": { "type": "string", "maxLength": 100, "description": "Nama orang tua / wali" },
+        "parentPhone": { "type": "string", "maxLength": 25, "description": "Nomor WhatsApp orang tua" },
+        "previousSchool": { "type": "string", "maxLength": 100, "description": "Asal sekolah / SD / MI" },
+        "status": { "type": "string", "enum": ["Aktif", "Baru", "Alumni"], "description": "Status siswa" },
+        "registrationDate": { "type": "string", "maxLength": 30, "description": "Tanggal pendaftaran SPMB" },
+        "notes": { "type": "string", "maxLength": 250, "description": "Catatan tambahan" }
+      },
+      "required": ["nisn", "fullName", "gender", "classRoom", "parentName", "parentPhone"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Data guru dan tenaga pendidik SMP Islam Al-Wasi' diinput oleh admin",
+      "type": "object",
+      "properties": {
+        "nip": { "type": "string", "maxLength": 30, "description": "NIP atau NUPTK" },
+        "fullName": { "type": "string", "maxLength": 100, "description": "Nama lengkap beserta gelar" },
+        "subject": { "type": "string", "maxLength": 50, "description": "Mata pelajaran yang diampu" },
+        "phone": { "type": "string", "maxLength": 25, "description": "Nomor WhatsApp aktif" },
+        "email": { "type": "string", "maxLength": 80, "description": "Alamat email resmi" },
+        "status": { "type": "string", "enum": ["Aktif", "Cuti"], "description": "Status kepegawaian" },
+        "createdAt": { "type": "string", "maxLength": 30, "description": "Waktu pembuatan record" }
+      },
+      "required": ["nip", "fullName", "subject", "phone", "status"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Data presensi real-time kehadiran peserta didik",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 64, "description": "ID siswa" },
+        "studentName": { "type": "string", "maxLength": 100, "description": "Nama siswa" },
+        "classRoom": { "type": "string", "maxLength": 10, "description": "Kelas rombel" },
+        "date": { "type": "string", "maxLength": 20, "description": "Tanggal presensi (YYYY-MM-DD)" },
+        "status": { "type": "string", "enum": ["Hadir", "Izin", "Sakit", "Alpa"], "description": "Status kehadiran" },
+        "time": { "type": "string", "maxLength": 15, "description": "Jam pencatatan presensi" },
+        "note": { "type": "string", "maxLength": 200, "description": "Keterangan tambahan" }
+      },
+      "required": ["studentId", "studentName", "classRoom", "date", "status", "time"]
+    },
+    "AcademicGrade": {
+      "title": "AcademicGrade",
+      "description": "Data nilai akademik peserta didik per mata pelajaran",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 64, "description": "ID siswa" },
+        "studentName": { "type": "string", "maxLength": 100, "description": "Nama siswa" },
+        "classRoom": { "type": "string", "maxLength": 10, "description": "Kelas rombel" },
+        "subject": { "type": "string", "maxLength": 50, "description": "Nama mata pelajaran" },
+        "semester": { "type": "string", "maxLength": 20, "description": "Semester ganjil/genap" },
+        "assignment": { "type": "number", "description": "Nilai tugas harian (0-100)" },
+        "midExam": { "type": "number", "description": "Nilai UTS (0-100)" },
+        "finalExam": { "type": "number", "description": "Nilai UAS (0-100)" },
+        "finalScore": { "type": "number", "description": "Rata-rata nilai akhir" },
+        "predicate": { "type": "string", "enum": ["A", "B", "C", "D"], "description": "Predikat kelulusan" },
+        "teacherName": { "type": "string", "maxLength": 100, "description": "Guru pengampu" },
+        "updatedAt": { "type": "string", "maxLength": 30, "description": "Waktu pembaruan" }
+      },
+      "required": ["studentId", "studentName", "classRoom", "subject", "assignment", "midExam", "finalExam", "finalScore", "predicate"]
+    },
+    "SchoolProfile": {
+      "title": "SchoolProfile",
+      "description": "Konfigurasi dan profil SMP Islam Al-Wasi'",
+      "type": "object",
+      "properties": {
+        "schoolName": { "type": "string", "maxLength": 100, "description": "Nama institusi" },
+        "npsn": { "type": "string", "maxLength": 30, "description": "Nomor Pokok Sekolah Nasional" },
+        "principal": { "type": "string", "maxLength": 100, "description": "Kepala Sekolah" },
+        "academicYear": { "type": "string", "maxLength": 20, "description": "Tahun ajaran aktif" },
+        "address": { "type": "string", "maxLength": 200, "description": "Alamat sekolah" }
+      },
+      "required": ["schoolName", "academicYear"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Koleksi data peserta didik dari pendaftaran SPMB"
+    },
+    "/teachers/{teacherId}": {
+      "schema": { "$ref": "#/entities/Teacher" },
+      "description": "Koleksi data guru yang diinput oleh admin"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": { "$ref": "#/entities/Attendance" },
+      "description": "Koleksi data presensi kehadiran real-time"
+    },
+    "/grades/{gradeId}": {
+      "schema": { "$ref": "#/entities/AcademicGrade" },
+      "description": "Koleksi data nilai akademik siswa"
+    },
+    "/school_settings/{settingId}": {
+      "schema": { "$ref": "#/entities/SchoolProfile" },
+      "description": "Pengaturan informasi sekolah"
+    }
+  }
+}

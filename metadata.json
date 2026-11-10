@@ -1,0 +1,8 @@
+{
+  "name": "Smart School SMP Islam Al-Wasi'",
+  "description": "Sistem Informasi Manajemen Sekolah Cerdas SMP Islam Al-Wasi' terintegrasi dengan absensi real-time, nilai akademik, pemantauan perkembangan peserta didik, dan SPMB online.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

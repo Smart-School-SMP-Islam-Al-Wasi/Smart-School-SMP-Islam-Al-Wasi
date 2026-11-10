@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="100" fill="#166534"/>
+  <circle cx="256" cy="256" r="210" fill="#ffffff" stroke="#15803d" stroke-width="12"/>
+  <circle cx="256" cy="256" r="185" fill="#166534"/>
+  
+  <!-- Islamic Arch Motif -->
+  <path d="M 180 340 L 180 230 C 180 180, 256 140, 256 140 C 256 140, 332 180, 332 230 L 332 340 Z" fill="#ffffff" opacity="0.15"/>
+  
+  <!-- Open Book / Al-Qur'an Motif -->
+  <path d="M 256 260 C 230 240, 180 240, 160 250 L 160 330 C 180 320, 230 320, 256 340 C 282 320, 332 320, 352 330 L 352 250 C 332 240, 282 240, 256 260 Z" fill="#ffffff"/>
+  <line x1="256" y1="260" x2="256" y2="340" stroke="#166534" stroke-width="4"/>
+
+  <!-- Crescent and Star -->
+  <path d="M 270 170 A 28 28 0 1 1 230 205 A 22 22 0 1 0 270 170 Z" fill="#ffffff"/>
+  <polygon points="268,175 272,185 283,185 274,192 277,202 268,196 259,202 262,192 253,185 264,185" fill="#ffffff"/>
+
+  <!-- Text / Initials -->
+  <text x="256" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="3">AL-WASI'</text>
+  <text x="256" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#86efac" text-anchor="middle" letter-spacing="4">SMART SCHOOL</text>
+</svg>
